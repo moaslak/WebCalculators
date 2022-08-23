@@ -1,21 +1,31 @@
 var a, b;
 
-function Add(a,b){
-    return a + b;
+function Add(){
+    a = document.getElementById("a").value;
+    b = document.getElementById("b").value;
+    window.alert(Number(a) + " + " + Number(b) + " = " + (Number(a) + Number(b)));
 }
 
 function Diff(a,b){
-    return a-b;
+    a = document.getElementById("a").value;
+    b = document.getElementById("b").value;
+    window.alert(Number(a) + " - " + Number(b) + " = " + (Number(a) - Number(b)));
 }
 
 function Multiply(a,b){
-    return a*b;
+    a = document.getElementById("a").value;
+    b = document.getElementById("b").value;
+    window.alert(Number(a) + " * " + Number(b) + " = " + (Number(a) * Number(b)));
 }
 
 function Division(a,b){
+    a = document.getElementById("a").value;
+    b = document.getElementById("b").value;
     if(b == 0){
-        console.log("Cannot divide by zero");
-        return 0;
+        window.alert("Cannot divide by zero");
     }
-    return a/b;
+    else{
+        window.alert(Number(a) + " / " + Number(b) + " = " + (Number(a) / Number(b)));
+    }
+    
 }
