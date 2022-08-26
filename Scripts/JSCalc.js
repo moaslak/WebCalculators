@@ -2,6 +2,7 @@ let a, b, result, count = 0;
 let resultString;
 let size = 6;
 let list = [];
+let selectSize = "";
 
 function resultToTextarea(resultString){
     count++;
@@ -15,10 +16,19 @@ function resultToTextarea(resultString){
     else{
         list.unshift(resultString);
     }
-    for(var i = 0; i < count; i++)
+    //TODO: select MAX 5
+    for(var i = 0; i < count; i++){
         resultToBox = resultToBox + list[i];
-    document.getElementById("resultsBox").value = resultToBox;
-    document.getElementById("result").value = result;
+        document.getElementById("resultsBox").value = resultToBox;
+        document.getElementById("result").value = result;
+    }
+    selectSize = count;
+    //document.getElementById("resultsBox").size("5");
+
+    var li = document.createElement('option');
+    li.value = resultString;
+    li.text = resultString;    
+    document.getElementById("resultsBox").options.add(li);
 }
 
 function Add(){
