@@ -5,17 +5,20 @@ let list = [];
 
 function resultToTextarea(resultString){
     count++;
+    let resultToBox = "";
     if(count % size == 0)
     {
         list.pop();
         list.unshift(resultString);
-        count--;
+        count--;   
     }
     else{
         list.unshift(resultString);
     }
-    document.getElementById("resultsBox").value = list;
-    document.getElementById("result").value = resultString;
+    for(var i = 0; i < count; i++)
+        resultToBox = resultToBox + list[i];
+    document.getElementById("resultsBox").value = resultToBox;
+    document.getElementById("result").value = result;
 }
 
 function Add(){

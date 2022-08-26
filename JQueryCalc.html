@@ -65,7 +65,7 @@
                 tempResult = tempResult + results[i]
             }
             $("#resultsBox").text(tempResult);
-            $("#result").text(resultString);
+            $("#result").text(result);
         });
         $("#minus").click(function(){
             result = parseFloat($("#a").val()) - parseFloat($("#b").val());
@@ -81,7 +81,7 @@
                 tempResult = tempResult + results[i]
             }
             $("#resultsBox").text(tempResult);
-            $("#result").text(resultString);
+            $("#result").text(result);
         });
         $("#multiply").click(function(){
             result =parseFloat($("#a").val()) * parseFloat($("#b").val());
@@ -97,7 +97,7 @@
                 tempResult = tempResult + results[i]
             }
             $("#resultsBox").text(tempResult);
-            $("#result").text(resultString);
+            $("#result").text(result);
         });
         $("#divide").click(function(){
             if(($("#b").val() == 0)){
@@ -117,7 +117,7 @@
                 tempResult = tempResult + results[i]
                 }
                 $("#resultsBox").text(tempResult);
-                $("#result").text(resultString);
+                $("#result").text(result);
             }        
         });                 
     });
