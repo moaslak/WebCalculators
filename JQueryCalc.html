@@ -4,45 +4,122 @@
 </meta>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="./Styles/style.css">
 </head>
 <body>
+    <h1>JQuery Calculator</h1>
     <a href="index.html">Back</a>
-    <br><br>
-    <label for="a">input 1: </label>
-    <input type="number" id="a" name="a" value="0"><br><br>
-    <label for="b">input 2: </label>
-    <input type="number" id="b" name="b" value="0"><br><br>
-    <button id="plus">Plus</button>
-    <button id="minus">Minus</button>
-    <button id="multiply">Multiply</button>
-    <button id="divide">Divide</button>
+        <br><br>
+        <div id="inputs">
+            <label for="a">input 1: </label>
+            <input type="number" id="a" name="a" value="0"><br><br>
+            <label for="b">input 2: </label>
+            <input type="number" id="b" name="b" value="0"><br><br>
+        </div>
+        <div id="operations">
+            <button id="plus" onclick="Add()">Plus</button>
+            <button id="minus" onclick="Diff()">Minus</button>
+            <button id="multiply" onclick="Multiply()">Multiply</button>
+            <button id="divide" onclick="Division()">Divide</button>
+            <br><br>
+            <button id="clear" onclick="Clear()">Clear</button>
+            <br><br>
+        </div>
+        <div id="results">
+            <label for="result">Latest result: </label>
+            <br>
+            <textarea id="result" placeholder="result"></textarea>
+            <br><br>
+            <label for="resultsBox">5 latest operations: </label>
+            <br>
+            <textarea id="resultsBox" rows="5"></textarea>
+        </div>
     
     <script>
+        
     $(document).ready(function(){
+        var results = [];
+        var result,count = 0;
+        var size = 6;
+        var resultString, tempResult= "";
+        $("#clear").click(function(){
+        while(count % size != 0){
+            results.pop();
+            count--;
+        }
+        $("#resultsBox").text(results);
+        $("#result").text("");
+        });
+
         $("#plus").click(function(){
-            alert(parseFloat($("#a").val()) + parseFloat($("#b").val())); 
+            result = parseFloat($("#a").val()) + parseFloat($("#b").val())
+            resultString = ($("#a").val() + " + " + $("#b").val() + " = " + result + "\n");
+            results.unshift(resultString);
+            count++;
+            if(count % size == 0){
+                count--;
+                results.pop();
+            }
+            tempResult = "";
+            for(var i = 0; i < count; i++){
+                tempResult = tempResult + results[i]
+            }
+            $("#resultsBox").text(tempResult);
+            $("#result").text(resultString);
         });
-    });
-    $(document).ready(function(){
         $("#minus").click(function(){
-            alert(parseFloat($("#a").val()) - parseFloat($("#b").val())); 
+            result = parseFloat($("#a").val()) - parseFloat($("#b").val());
+            resultString = ($("#a").val() + " - " + $("#b").val() + " = " + result + "\n");
+            results.unshift(resultString);
+            count++;
+            if(count % size == 0){
+                count--;
+                results.pop();
+            }
+            tempResult = "";
+            for(var i = 0; i < count; i++){
+                tempResult = tempResult + results[i]
+            }
+            $("#resultsBox").text(tempResult);
+            $("#result").text(resultString);
         });
-    });
-    $(document).ready(function(){
         $("#multiply").click(function(){
-            alert(parseFloat($("#a").val()) * parseFloat($("#b").val())); 
+            result =parseFloat($("#a").val()) * parseFloat($("#b").val());
+            resultString = ($("#a").val() + " * " + $("#b").val() + " = " + result + "\n");
+            results.unshift(resultString);
+            count++;
+            if(count % size == 0){
+                count--;
+                results.pop();
+            }
+            tempResult = "";
+            for(var i = 0; i < count; i++){
+                tempResult = tempResult + results[i]
+            }
+            $("#resultsBox").text(tempResult);
+            $("#result").text(resultString);
         });
-    });
-    $(document).ready(function(){
         $("#divide").click(function(){
             if(($("#b").val() == 0)){
             alert("Cannot divide by ZERO!!!");
             }
             else{
-                alert(parseFloat($("#a").val()) / parseFloat($("#b").val())); 
+                result = parseFloat($("#a").val()) / parseFloat($("#b").val());
+                resultString = ($("#a").val() + " / " + $("#b").val() + " = " + result + "\n");
+                results.unshift(resultString);
+                count++;
+                if(count % size == 0){
+                    count--;
+                    results.pop();
+                }
+                tempResult = "";
+                for(var i = 0; i < count; i++){
+                tempResult = tempResult + results[i]
+                }
+                $("#resultsBox").text(tempResult);
+                $("#result").text(resultString);
             }        
-        });
-        
+        });                 
     });
     </script>
     

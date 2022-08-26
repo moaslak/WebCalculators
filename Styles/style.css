@@ -1,0 +1,14 @@
+body {
+    background-color: azure;
+}
+h1 {
+    font-size: x-large;
+    color: red;
+    text-align: center;
+}
+a {
+    color: blue;
+}
+a:hover{
+    color: hotpink;
+}
