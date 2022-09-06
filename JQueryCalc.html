@@ -132,9 +132,9 @@
         $("#minus").click(function(){
             result = parseFloat($("#a").val()) - parseFloat($("#b").val());
             if($("#b").val() < 0)
-                resultString = ($("#a").val() + " + (" + $("#b").val() + ") = " + result + "\n");
+                resultString = ($("#a").val() + " - (" + $("#b").val() + ") = " + result + "\n");
             else
-            resultString = ($("#a").val() + " + " + $("#b").val() + " = " + result + "\n");
+            resultString = ($("#a").val() + " - " + $("#b").val() + " = " + result + "\n");
             results.unshift(resultString);
             count++;
             if(count % size == 0){
@@ -151,9 +151,9 @@
         $("#multiply").click(function(){
             result =parseFloat($("#a").val()) * parseFloat($("#b").val());
             if($("#b").val() < 0)
-                resultString = ($("#a").val() + " + (" + $("#b").val() + ") = " + result + "\n");
+                resultString = ($("#a").val() + " * (" + $("#b").val() + ") = " + result + "\n");
             else
-            resultString = ($("#a").val() + " + " + $("#b").val() + " = " + result + "\n");
+            resultString = ($("#a").val() + " * " + $("#b").val() + " = " + result + "\n");
             results.unshift(resultString);
             count++;
             if(count % size == 0){
@@ -174,9 +174,9 @@
             else{
                 result = parseFloat($("#a").val()) / parseFloat($("#b").val());
                 if($("#b").val() < 0)
-                    resultString = ($("#a").val() + " + (" + $("#b").val() + ") = " + result + "\n");
+                    resultString = ($("#a").val() + " / (" + $("#b").val() + ") = " + result + "\n");
                 else
-                    resultString = ($("#a").val() + " + " + $("#b").val() + " = " + result + "\n");
+                    resultString = ($("#a").val() + " / " + $("#b").val() + " = " + result + "\n");
                 results.unshift(resultString);
                 count++;
                 if(count % size == 0){
