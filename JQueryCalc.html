@@ -10,19 +10,22 @@
     <h1>JQuery Calculator</h1>
     <a href="index.html">Back</a>
         <br><br>
+        <label for="resultsBox">5 latest operations: </label>
+        <select id="resultsBox" rows="5"></select>
         <div id="inputs">
             <label for="a">input 1: </label>
             <input type="number" id="a" name="a" value="0"><br><br>
+            <label id="operator"></label><br><br>
             <label for="b">input 2: </label>
             <input type="number" id="b" name="b" value="0"><br><br>
         </div>
         <div id="operations">
-            <button id="plus" onclick="Add()">Plus</button>
-            <button id="minus" onclick="Diff()">Minus</button>
-            <button id="multiply" onclick="Multiply()">Multiply</button>
-            <button id="divide" onclick="Division()">Divide</button>
+            <button id="plus">Plus</button>
+            <button id="minus">Minus</button>
+            <button id="multiply">Multiply</button>
+            <button id="divide">Divide</button>
             <br><br>
-            <button id="clear" onclick="Clear()">Clear</button>
+            <button id="clear">Clear</button>
             <br><br>
         </div>
         <div id="results">
@@ -30,29 +33,107 @@
             <br>
             <textarea id="result" placeholder="result"></textarea>
             <br><br>
-            <label for="resultsBox">5 latest operations: </label>
-            <br>
-            <textarea id="resultsBox" rows="5"></textarea>
         </div>
-    
     <script>
         
     $(document).ready(function(){
         var results = [];
         var result,count = 0;
         var size = 6;
-        var resultString, tempResult= "";
+        var resultString, tempResult, operator= "";
         $("#clear").click(function(){
         while(count % size != 0){
             results.pop();
             count--;
         }
-        $("#resultsBox").text(results);
-        $("#result").text("");
+        if($("#resultsBox option").length != 0){
+                $("#resultsBox option").remove().end()
+            }
+        $("#a").val(0);
+        $("#b").val(0);
+        $("#result").val(0);
         });
 
+        $.fn.history = function(){
+            if($("#resultsBox option").length != 0){
+                $("#resultsBox option").remove().end()
+            }
+            for(var i = 0; i < results.length; i++){
+                $("#resultsBox").append(new Option(results[i]));
+            }
+            $("#operator").text(operator);
+            $("#result").text(result);
+        }
+
+        $("#resultsBox").on("change", function(e){
+            var temp, index;
+            temp = $("#resultsBox option:selected").text()
+            a = "";
+            b = "";
+            result = "";
+            for(var i = 0; i < temp.length; i++){
+                if(temp.charAt(i) != " ")
+                    a = a + temp.charAt(i);
+                else{
+                    index = i+1;
+                    break;
+                }
+            }
+            operator = temp.charAt(index);
+            $("#operator").text(operator);
+            index = index + 2;
+            var isNegative = 0;
+            for(var i = index; i<temp.length; i++){
+                if(temp.charAt(i) != " " && temp.charAt(i) != ")"){
+                    if(temp.charAt(i) != "(")
+                        b = b + temp.charAt(i);
+                    else
+                        isNegative = 1;
+                }
+                        
+                else{
+                    index = i+3+isNegative;
+                    break;
+                }
+            }
+            $("#a").val(a);
+            $("#b").val(b);
+            for(var i = index; i<temp.length; i++){
+                
+                if(temp.charAt(i) != " ")
+                    result = result + temp.charAt(i);
+                else{
+                    break;
+                }
+            }
+
+            $("#result").val(result);
+        })
         $("#plus").click(function(){
             result = parseFloat($("#a").val()) + parseFloat($("#b").val())
+            if($("#b").val() < 0)
+                resultString = ($("#a").val() + " + (" + $("#b").val() + ") = " + result + "\n");
+            else
+            resultString = ($("#a").val() + " + " + $("#b").val() + " = " + result + "\n");
+            results.unshift(resultString);
+            count++;
+            if(count % size == 0){
+                count--;
+                results.pop();
+            }
+            tempResult = "";
+            for(var i = 0; i < count; i++){
+                tempResult = tempResult + results[i]
+                
+            }
+            operator = "+";
+            $.fn.history();  
+        });
+        $("#minus").click(function(){
+            result = parseFloat($("#a").val()) - parseFloat($("#b").val());
+            if($("#b").val() < 0)
+                resultString = ($("#a").val() + " + (" + $("#b").val() + ") = " + result + "\n");
+            else
             resultString = ($("#a").val() + " + " + $("#b").val() + " = " + result + "\n");
             results.unshift(resultString);
             count++;
@@ -64,28 +145,15 @@
             for(var i = 0; i < count; i++){
                 tempResult = tempResult + results[i]
             }
-            $("#resultsBox").text(tempResult);
-            $("#result").text(result);
-        });
-        $("#minus").click(function(){
-            result = parseFloat($("#a").val()) - parseFloat($("#b").val());
-            resultString = ($("#a").val() + " - " + $("#b").val() + " = " + result + "\n");
-            results.unshift(resultString);
-            count++;
-            if(count % size == 0){
-                count--;
-                results.pop();
-            }
-            tempResult = "";
-            for(var i = 0; i < count; i++){
-                tempResult = tempResult + results[i]
-            }
-            $("#resultsBox").text(tempResult);
-            $("#result").text(result);
+            operator = "-";
+            $.fn.history();
         });
         $("#multiply").click(function(){
             result =parseFloat($("#a").val()) * parseFloat($("#b").val());
-            resultString = ($("#a").val() + " * " + $("#b").val() + " = " + result + "\n");
+            if($("#b").val() < 0)
+                resultString = ($("#a").val() + " + (" + $("#b").val() + ") = " + result + "\n");
+            else
+            resultString = ($("#a").val() + " + " + $("#b").val() + " = " + result + "\n");
             results.unshift(resultString);
             count++;
             if(count % size == 0){
@@ -96,8 +164,8 @@
             for(var i = 0; i < count; i++){
                 tempResult = tempResult + results[i]
             }
-            $("#resultsBox").text(tempResult);
-            $("#result").text(result);
+            operator = "*";
+            $.fn.history();
         });
         $("#divide").click(function(){
             if(($("#b").val() == 0)){
@@ -105,7 +173,10 @@
             }
             else{
                 result = parseFloat($("#a").val()) / parseFloat($("#b").val());
-                resultString = ($("#a").val() + " / " + $("#b").val() + " = " + result + "\n");
+                if($("#b").val() < 0)
+                    resultString = ($("#a").val() + " + (" + $("#b").val() + ") = " + result + "\n");
+                else
+                    resultString = ($("#a").val() + " + " + $("#b").val() + " = " + result + "\n");
                 results.unshift(resultString);
                 count++;
                 if(count % size == 0){
@@ -116,8 +187,8 @@
                 for(var i = 0; i < count; i++){
                 tempResult = tempResult + results[i]
                 }
-                $("#resultsBox").text(tempResult);
-                $("#result").text(result);
+                operator = "/";
+                $.fn.history();
             }        
         });                 
     });
