@@ -6,7 +6,6 @@ let selectSize = "";
 
 function inputFromSelect(){
     var selectedString = document.getElementById("resultsBox");
-    //var a, b, result,
     var operator = " ";
     var index;
     var temp = "";

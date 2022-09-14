@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <meta>
-        <title>JavaScriptCalc</title>
+        <title>TypeScriptCalc</title>
     </meta>
     <head>
         <script type="text/javascript" src="Scripts\tscalc.js"></script>
@@ -10,9 +10,13 @@
         <h1>TypeScript Calculator</h1>
         <a href="index.html">Back</a>
         <br><br>
+        <label for="resultsBox">5 latest operations: </label>
+        <select id="resultsBox" rows="5" onchange="inputFromSelect()"></select>
+        <br><br>
         <div id="inputs">
             <label for="a">input 1: </label>
             <input type="number" id="a" name="a" value="0"><br><br>
+            <label id="operator"></label><br><br>
             <label for="b">input 2: </label>
             <input type="number" id="b" name="b" value="0"><br><br>
         </div>
@@ -30,9 +34,6 @@
             <br>
             <textarea id="result" placeholder="result"></textarea>
             <br><br>
-            <label for="resultsBox">5 latest operations: </label>
-            <br>
-            <textarea id="resultsBox" rows="5"></textarea>
-        </div>     
+        </div>
     </body>
     <footer></footer>
